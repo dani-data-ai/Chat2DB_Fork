@@ -2,7 +2,6 @@ import React, { memo, useEffect, useMemo, Fragment } from 'react';
 import styles from './index.less';
 import i18n from '@/i18n';
 import { Button } from 'antd';
-import OpenAIChat from '@/components/OpenAIChat';
 
 // ----- constants -----
 import { WorkspaceTabType, workspaceTabConfig } from '@/constants';
@@ -260,33 +259,21 @@ const WorkspaceTabs = memo(() => {
   }, [workspaceTabList, activeConsoleId]);
 
   function renderCreateConsoleButton() {
-  return (
-    <div className={styles.createButtonBox}>
-      <Button
-        className={styles.createButton}
-        type="primary"
-        onClick={() => {
-          createNewConsole();
-        }}
-      >
-        <Iconfont code="&#xe63a;" />
-        {i18n('common.button.createConsole')}
-      </Button>
-      
-      <div style={{ marginTop: '20px' }}>
-        <OpenAIChat 
-          onSQLGenerated={(sql) => {
-            // Create a new console with the generated SQL
+    return (
+      <div className={styles.createButtonBox}>
+        <Button
+          className={styles.createButton}
+          type="primary"
+          onClick={() => {
             createNewConsole();
-            // You can add logic here to insert the SQL into the new console
-            console.log('Generated SQL:', sql);
           }}
-          databaseSchema={currentConnectionDetails?.type}
-        />
+        >
+          <Iconfont code="&#xe63a;" />
+          {i18n('common.button.createConsole')}
+        </Button>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   return workspaceTabItems?.length ? (
     <Tabs
